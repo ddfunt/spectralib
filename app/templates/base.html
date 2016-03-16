@@ -1,0 +1,29 @@
+<html>
+  <head>
+   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <link href="/static/main.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script type=text/javascript src="{{  url_for('static', filename='jquery.js') }}"></script>
+    {% if title %}
+    <title></title>
+    {% else %}
+    <title>Band Selector</title>
+    {% endif %}
+
+  </head>
+  <body>
+
+
+    <hr>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }} </li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </body>
+</html>

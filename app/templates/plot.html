@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div id="myDiv" style="width: 1700px; height: 800px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+
+    <script>
+
+        var data =[ {{ plot_vals|safe }}];
+
+Plotly.newPlot('myDiv', data);
+    </script>
+
+
+{% endblock %}
