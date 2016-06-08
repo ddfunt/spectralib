@@ -22,17 +22,30 @@ def spectra():
         session['plot_data'] = form.molecules.data
         session['params'] = {'start':form.start_freq.data,
                              'stop': form.stop_freq.data,
-                             'temp': form.temp.data}
+                             'temp': form.temp.data,
+                             }
 
         return redirect('/plot')
     return render_template('specform.html',form=form)
 
 @app.route('/plot')
 def plot():
-    mols = jpl.get_mols()
+
     data = session.get('plot_data', None)
     params = session.get('params', None)
     temp = params['temp']
+    plot_vals = create_binned(data, params, temp)
+
+
+    return render_template('plot.html', plot_vals=json.dumps(plot_vals))
+
+@app.route('/spectrum')
+def spectrum():
+    pass
+
+
+def create_binned(data, params, temp):
+    mols = jpl.get_mols()
     names = []
     cats = []
     for mol in data:
@@ -67,10 +80,17 @@ def plot():
             'colorscale': 'Viridis'
               }
 
+    return plot_vals
 
-    return render_template('plot.html', plot_vals=json.dumps(plot_vals))
 
-
+def make_spectra(data, start, stop, temp, linewidth):
+    return jpl.line_list_to_spectrum(frequency=data[:,0],
+                              intensity=data[:,1],
+                              start=start,
+                              stop=stop,
+                              temp=temp,
+                              e_lower=data[:,2],
+                                    linewidth=linewidth)
 
 def bin_data(data, m, ma):
     bins = np.linspace(m, ma, 1000)

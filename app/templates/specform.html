@@ -5,21 +5,22 @@
 <form method="POST">
 {{ form.csrf_token }}
 
-<p>{{ form.start_freq.label }}
-    {{ form.start_freq(default=2000) }}</p>
-    <p>
-        {{ form.stop_freq.label }}
-    {{ form.stop_freq(default=600000) }}
-</p>
+    <div class="fields" >
+        <p>{{ form.start_freq.label }}
+            {{ form.start_freq(default=2000) }}</p>
         <p>
-        {{ form.temp.label }}
-    {{ form.temp}}
-</p>
+            {{ form.stop_freq.label }}
+            {{ form.stop_freq(default=600000) }}
+        </p>
 
-    <div style="height= 25%">
+            {{ form.temp.label }}
+            {{ form.temp}}
+    </div>
+    <div style="height=25%">
         {{ form.molecules.label }}{{ form.molecules(size=20) }}
     </div>
-{{ form.submit() }}
+
+    {{ form.submit() }}
 
 </form>
 
