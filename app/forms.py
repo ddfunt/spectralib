@@ -18,6 +18,7 @@ class SpectraForm(Form):
 
                               default=1,
                               )
+    normalize = BooleanField('Normalize Spectra', default=True)
     #linewidth = FloatField('Linewidth <sub>for spectrum only</sub> (MHz):', default=0.5)
     #show_spectra = BooleanField('Show Full Spectra?: ', default=False)
     molecules = SelectMultipleField("Molecules:", coerce=int, choices=[(0, "Inactive"), (1, "Active")],

@@ -23,7 +23,8 @@ def spectra():
         session['params'] = {'start':form.start_freq.data,
                              'stop': form.stop_freq.data,
                              'temp': form.temp.data,
-                             'resolution': form.resolution.data
+                             'resolution': form.resolution.data,
+                             'normalize': form.normalize.data
                              }
 
         return redirect('/plot')
@@ -69,7 +70,7 @@ def create_binned(data, params, temp):
         freq, inten = bin_data(line_list, params['start'], params['stop'], resolution)
         x = freq.tolist()
         z.append(inten.tolist())
-    if True:
+    if params['normalize']:
         m = np.array(z).max()
         for i, row in enumerate(z):
             temp_array = np.array(row)
