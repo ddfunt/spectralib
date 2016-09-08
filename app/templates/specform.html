@@ -2,25 +2,48 @@
 {% extends "base.html" %}
 
 {% block content %}
+<h2>How to use this page</h2>
+    <div class="intro"><p>
+This app is designed to aid in the selection of a frequency band for rotational spectroscopy.
+One of the most difficult parts about choosing a frequency band is trying to select a band that
+is capable of measuring all of the molecules that may be in your experiment. </p> <p>
+Select the molecule(s) of interest from the list below (multiple with ctrl+click).  Fill in the form
+to specify the parameters that will best match your desired experiments.</p><p>
+To get a general overview fill keep the resolution elements at ~1.  The resulting plot will be downsampled
+to allow for easy comparison of the locations of the strongest lines.  You may then reduce the bandwidth
+or increase the resolution elements to get a better picture of local line density.  Actual experiments have
+a resolution of ~10000 per GHz for room temperature experiments and ~50000 per GHz for jet cooled spectra under 60GHz.</p>
+<p>
+    When complete a stick style spectrum of each molecule will be displayed where the intensity in indicated by the color.
+        Intensities are normalized by default, such that the most intense line of each spectrum is scaled to that of the most intense spectrum.
+        If you prefer to view the relative intensities between spectra deselect the normalize option.</p>
+    </div>
 <form method="POST">
 {{ form.csrf_token }}
 
-    <div class="fields" >
-        <p>{{ form.start_freq.label }}
-            {{ form.start_freq(default=2000) }}</p>
-        <p>
-            {{ form.stop_freq.label }}
-            {{ form.stop_freq(default=600000) }}
+    < class="fields" >
+        <fieldset><legend>Input Parameters:</legend>
+        <p>{{ form.start_freq.label(class="txt_label")}}
+            {{ form.start_freq(class="input_field") }}
+
+            {{ form.stop_freq.label(class="txt_label") }}
+            {{ form.stop_freq(class="input_field") }}
         </p>
 
-            {{ form.temp.label }}
-            {{ form.temp}}
-    </div>
-    <div style="height=25%">
-        {{ form.molecules.label }}{{ form.molecules(size=20) }}
-    </div>
+            {{ form.temp.label(class="txt_label") }}
+            {{ form.temp( class="input_field")}}
+            {{ form.resolution.label(class="txt_label") }}
+            {{ form.resolution( class="input_field")}}
 
+        <p></fieldset>
+        <fieldset><legend>Molecules:</legend>
+
+                {{ form.molecules(size=20, class="combo_list" ) }}
+        </p></fieldset>
+    </div>
+    <div class="button">
     {{ form.submit() }}
+        </div>
 
 </form>
 

@@ -23,6 +23,7 @@ def spectra():
         session['params'] = {'start':form.start_freq.data,
                              'stop': form.stop_freq.data,
                              'temp': form.temp.data,
+                             'resolution': form.resolution.data
                              }
 
         return redirect('/plot')
@@ -48,6 +49,7 @@ def create_binned(data, params, temp):
     mols = jpl.get_mols()
     names = []
     cats = []
+    resolution = abs(params['start'] - params['stop'])/1000 * params['resolution']
     for mol in data:
 
         cat = jpl.get_cat(mols[str(mol)]['link'])
@@ -63,7 +65,8 @@ def create_binned(data, params, temp):
         if temp != 300:
             line_list[:, 1] = jpl.scale_by_temp(line_list[:,0], line_list[:,1], line_list[:,2], temp)
 
-        freq, inten = bin_data(line_list, params['start'], params['stop'])
+
+        freq, inten = bin_data(line_list, params['start'], params['stop'], resolution)
         x = freq.tolist()
         z.append(inten.tolist())
     if True:
@@ -92,8 +95,8 @@ def make_spectra(data, start, stop, temp, linewidth):
                               e_lower=data[:,2],
                                     linewidth=linewidth)
 
-def bin_data(data, m, ma):
-    bins = np.linspace(m, ma, 1000)
+def bin_data(data, m, ma, resolution):
+    bins = np.linspace(m, ma, resolution)
     heat = []
     for i, bottom in enumerate(bins[:-1]):
         ceil = bins[i+1]
