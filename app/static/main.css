@@ -38,12 +38,13 @@ fieldset{
 
 .input_field{
     width:100px;
-
+    text-align: center;
 }
 .txt_label{
     width:200px;
     color:black;
     font-family: Ubuntu;
+
 
     font-size:15px;
 }
