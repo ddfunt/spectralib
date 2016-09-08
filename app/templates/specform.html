@@ -40,7 +40,10 @@ a resolution of ~10000 per GHz for room temperature experiments and ~50000 per G
         <fieldset><legend>Molecules:</legend>
 
                 {{ form.molecules(size=20, class="combo_list" ) }}
-        </p></fieldset>
+        </p></fieldset><fieldset>
+        <p>{{form.pallete.label(class="txt_label")}}
+            {{form.pallete(class="input_field")}}</p>
+        </fieldset>
     </div>
     <div class="button">
     {{ form.submit() }}

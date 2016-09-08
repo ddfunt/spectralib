@@ -24,7 +24,8 @@ def spectra():
                              'stop': form.stop_freq.data,
                              'temp': form.temp.data,
                              'resolution': form.resolution.data,
-                             'normalize': form.normalize.data
+                             'normalize': form.normalize.data,
+                             'color': form.pallete.data
                              }
 
         return redirect('/plot')
@@ -81,7 +82,7 @@ def create_binned(data, params, temp):
             'x': x,
             'y': names,
             'type': 'heatmap',
-            'colorscale': 'Viridis'
+            'colorscale': params['color']
               }
 
     return plot_vals

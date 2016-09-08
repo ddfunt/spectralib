@@ -34,7 +34,11 @@ fieldset{
     text-align: center;
 
 }
+.plot{
 
+    width:70%;
+    height:800px;
+}
 
 .input_field{
     width:100px;

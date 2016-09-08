@@ -9,6 +9,10 @@ from wtforms import IntegerField
 from wtforms.validators import DataRequired
 
 
+colors =["Reds", 'RdGy', 'Viridis', 'Spectral',
+         'Greens','RdYlBu', 'PuOr', 'BrBG'
+]
+colors = [(c,c) for c in colors]
 
 class SpectraForm(Form):
     start_freq = IntegerField('Start Frequency (MHz):', default=2000)
@@ -24,6 +28,7 @@ class SpectraForm(Form):
     molecules = SelectMultipleField("Molecules:", coerce=int, choices=[(0, "Inactive"), (1, "Active")],
                                     default=1 ,
                                     )
+    pallete =  SelectField(u'Color Palette', choices=colors)
     submit = SubmitField("Submit")
 
     def __init__(self, molecules):
